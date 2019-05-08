@@ -16,13 +16,13 @@ print(cfg.CAMERA_RESOLUTION)
 import os
 
 #donkey name. This should be unique across the shared mqtt broker
-DONKEY_UNIQUE_NAME = 'my_robot1234'
+DONKEY_UNIQUE_NAME = 'starmonk_racer'
 
 #pi information
 PI_USERNAME = "pi"
 PI_PASSWD = "raspberry"
-PI_HOSTNAME = "raspberrypi.local"
-PI_DONKEY_ROOT = "/home/pi/d2"
+PI_HOSTNAME = "starmonk.local"
+PI_DONKEY_ROOT = "/home/ramsin/Projects/starmonk/racer"
 
 #PATHS
 CAR_PATH = PACKAGE_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -39,10 +39,11 @@ IMAGE_W = 160
 IMAGE_H = 120
 IMAGE_DEPTH = 3         # default RGB=3, make 1 for mono
 CAMERA_FRAMERATE = DRIVE_LOOP_HZ
+CAMERA_RESOLUTION = (120, 160)
 
 #9865, over rides only if needed, ie. TX2..
 PCA9685_I2C_ADDR = 0x40
-PCA9685_I2C_BUSNUM = None
+PCA9685_I2C_BUSNUM = 1
 
 #drivetrain
 DRIVE_TRAIN_TYPE = "SERVO_ESC" # SERVO_ESC|DC_STEER_THROTTLE|DC_TWO_WHEEL|SERVO_HBRIDGE_PWM
@@ -101,13 +102,16 @@ FREEZE_LAYERS = False
 NUM_LAST_LAYERS_TO_TRAIN = 7
 
 #JOYSTICK
-USE_JOYSTICK_AS_DEFAULT = True
+# USE_JOYSTICK_AS_DEFAULT = True
+USE_JOYSTICK_AS_DEFAULT = False
 JOYSTICK_MAX_THROTTLE = 0.3
 JOYSTICK_STEERING_SCALE = 1.0
 AUTO_RECORD_ON_THROTTLE = True
 CONTROLLER_TYPE='ps3'           #(ps3|ps4|xbox|nimbus)
-USE_NETWORKED_JS = False
-NETWORK_JS_SERVER_IP = "192.168.0.1"
+# USE_NETWORKED_JS = False
+# NETWORK_JS_SERVER_IP = "192.168.0.1"
+NETWORK_JS_SERVER_IP = "10.0.2.16"
+USE_NETWORKED_JS = True
 JOYSTICK_DEADZONE = 0.0         # when non zero, this is the smallest throttle before recording triggered.
 
 #For the categorical model, this limits the upper bound of the learned throttle

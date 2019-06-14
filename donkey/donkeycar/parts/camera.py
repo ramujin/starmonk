@@ -11,7 +11,7 @@ class BaseCamera:
         return self.frame
 
 class CSICamera(BaseCamera):
-    def gstreamer_pipeline(self,capture_width=160, capture_height=120, display_width=160, display_height=120, framerate=20, flip_method=0) :   
+    def gstreamer_pipeline(self,capture_width=1640, capture_height=922, display_width=1640, display_height=922, framerate=60, flip_method=0) :   
         return ('nvarguscamerasrc ! ' 
         'video/x-raw(memory:NVMM), '
         'width=(int)%d, height=(int)%d, '
@@ -21,7 +21,7 @@ class CSICamera(BaseCamera):
         'videoconvert ! '
         'video/x-raw, format=(string)BGR ! appsink'  % (capture_width,capture_height,framerate,flip_method,display_width,display_height))
 
-    def __init__(self, resolution=(160, 120), framerate=60):
+    def __init__(self, resolution=(1640, 922), framerate=60):
         import cv2
         # initialize the camera and stream
         self.camera = cv2.VideoCapture(self.gstreamer_pipeline(display_width=resolution[0],display_height=resolution[1],flip_method=2), cv2.CAP_GSTREAMER)
@@ -210,3 +210,4 @@ class ImageListCamera(BaseCamera):
 
     def shutdown(self):
         pass
+

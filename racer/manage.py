@@ -92,9 +92,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             threaded = True
             inputs = ['angle', 'throttle']
         elif cfg.CAMERA_TYPE == "PICAM":
+            pass
             # from donkeycar.parts.camera import PiCamera
             # cam = PiCamera(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH)
-            # from donkeycar.parts.camera import PiCamera
+        elif cfg.CAMERA_TYPE == "CSI_CAM":
             from donkeycar.parts.camera import CSICamera
             cam = CSICamera(resolution=cfg.CAMERA_RESOLUTION)
         elif cfg.CAMERA_TYPE == "WEBCAM":
@@ -111,7 +112,9 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None, camera_type
             
         # V.add(cam, inputs=inputs, outputs=['cam/image_array'], threaded=threaded)
         V.add(cam, outputs=['cam/image_array'], threaded=False)
-        
+        from donkeycar.parts.cv import ImageScale
+        V.add(ImageScale(0.11), inputs=['cam/image_array'], outputs=['cam/image_array'])
+
     if use_joystick or cfg.USE_JOYSTICK_AS_DEFAULT:
         #modify max_throttle closer to 1.0 to have more power
         #modify steering_scale lower than 1.0 to have less responsive steering
